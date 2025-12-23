@@ -78,8 +78,8 @@ def get_recommendations(title,data, cosine_sim=cosine_sim):
     return data['title'].iloc[movie_indices]
 
 # save the data and cosine_sim matrix using joblib
-joblib.dump(data,'..\\models\\data.pkl')
-joblib.dump(cosine_sim,'..\\models\\cosine_sim.pkl')
+joblib.dump(data,'..\\model and data\\data.pkl')
+joblib.dump(cosine_sim,'..\\model and data\\cosine_sim.pkl')
 
 print("Model and data saved successfully.")
 
