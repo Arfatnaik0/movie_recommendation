@@ -125,4 +125,4 @@ This project demonstrates a practical implementation of a content-based recommen
 It highlights feature engineering, text representation, and recommendation logic without relying on user interaction data.
 
 
-**Note:** The `cosine_sim.pkl` file is generated during runtime and excluded from version control due to size. It will be created automatically when you run the notebooks.
+**Note:** The `cosine_sim.pkl` file is generated during runtime and excluded from version control due to size. It will be created automatically when you run the script.
