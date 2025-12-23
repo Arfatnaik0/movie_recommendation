@@ -6,6 +6,8 @@ Instead of using user ratings, the system recommends movies by comparing content
 
 The goal is to demonstrate how recommendation systems work using text representation and similarity measures.
 
+![alt text](output.png)
+
 ---
 
 ## Dataset
