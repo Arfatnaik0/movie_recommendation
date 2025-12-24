@@ -3,7 +3,6 @@ import numpy as np
 import pandas as pd
 import ast
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
 import joblib
 
 # load datasets
@@ -66,19 +65,5 @@ joblib.dump(data,'..\\model and data\\data.pkl')
 joblib.dump(tfidf_matrix,'..\\model and data\\tfidf_matrix.pkl')
 
 print("Model and data saved successfully.")
-
-# function to get recommendations
-def get_recommendations(title,data=data,tfidf_matrix=tfidf_matrix):
-    title = title.lower()
-    if title not in data['title'].values:
-        return "Movie not found"
-    
-    idx = data[data['title'] == title].index[0]
-    sim=cosine_similarity(tfidf_matrix[idx], tfidf_matrix)
-    sim_score = list(enumerate(sim[0]))
-    sim_score = sorted(sim_score, key=lambda x: x[1], reverse=True)
-    sim_score = sim_score[1:11]
-    movie_indices = [i[0] for i in sim_score]
-    return data['title'].iloc[movie_indices]
 
 

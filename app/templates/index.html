@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>recommendations</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+        }
+
+        h1 { 
+            color: #ffffff; 
+            text-align: center;
+        }
+
+        h2 {
+            color: #ffffff;
+            text-align: center;
+        }
+
+        .recommendations {
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+
+        .movie-item {
+            padding: 10px;
+            margin: 5px 0;
+            background-color: #333333;
+            border-left: 4px solid #4CAF50;
+            color: #e0e0e0;
+        }
+
+        form{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        
+        input, button {
+            padding: 5px;
+            font-size: 10px;
+            margin: 8px 0;
+            width: 50%;
+        }
+
+        input {
+            background-color: #333333;
+            border: 1px solid #555555;
+            color: #e0e0e0;
+            padding: 8px;
+        }
+
+        input::placeholder {
+            color: #888888;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #4CAF50;
+            background-color: #3a3a3a;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Enter a movie name to get recommendations</h1>
+    <form action="/recommend" method="post">
+        <input type="text" name="movie" placeholder="Movie Name" required>
+        <button type="submit">Get Recommendations</button>
+    </form>
+    {% if recommendations|length > 0 and recommendations != ["Movie not found. Please check the title and try again."] %}
+        <div class="recommendations">
+            <h2>Recommended Movies if you watched {{ movie }}:</h2>
+                <ul>
+                    {% for movie in recommendations %}
+                        <div class="movie-item">{{loop.index}}. {{ movie }}</div>
+                    {% endfor %}
+                </ul>
+        </div>
+    {% endif %}
+    {% if recommendations==["Movie not found. Please check the title and try again."] %}
+        <h2>{{ recommendations[0] }}</h2>
+    {% endif %}
+</body>
+</html>
