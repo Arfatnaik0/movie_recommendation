@@ -32,99 +32,103 @@ movie_recommendation_system/
 │ └── tmdb_5000_credits.csv
 │
 ├── notebook/
-│ ├── main.ipynb # Data processing and model building
+│ ├── rec.ipynb # Data processing and model building
 │ └── test.ipynb # Load saved model and test recommendations
 │
 ├── model and data/
 │ ├── data.pkl # Processed movie data
-│ └── cosine_sim.pkl # Cosine similarity matrix
+│ └── tfidf_matrix.pkl # TF-IDF feature matrix
 │
 ├── src/
-│ └── recommender.py # Clean, runnable script
+│ └── model.py # Clean, runnable script
 │
+├── output.png
 ├── README.md
 └── requirements.txt
 
 ```
 
 
+
 ---
 
 ## Approach
 - Merged movie and credits datasets
-- Selected relevant features such as genres, keywords, cast, director, and overview
+- Selected relevant features: genres, keywords, cast, director, and overview
 - Used only the top 3 cast members to reduce noise
 - Extracted only the director from crew data
 - Normalized names by removing spaces to treat them as single tokens
 - Combined all features into a single text column (`tags`)
-- Converted text data into numerical vectors using TF-IDF
-- Computed similarity between movies using cosine similarity
+- Converted text data into numerical vectors using **TF-IDF**
+- Computed **cosine similarity on demand** for recommendations
 
 ---
 
 ## Recommendation Logic
-1. Convert each movie into a TF-IDF vector
-2. Compute cosine similarity between all movie vectors
-3. For a given movie, find the most similar movies based on cosine similarity
-4. Return the top recommended movies excluding the input movie itself
+1. Convert movie content into TF-IDF vectors
+2. When a movie title is provided:
+   - Compute cosine similarity between the selected movie and all other movies
+   - Sort similarity scores
+   - Return the top most similar movies (excluding the input movie)
+
+Unlike naive implementations, the project **does not compute a full similarity matrix**, improving space efficiency.
 
 ---
 
-## Why TF-IDF and Cosine Similarity
-- **TF-IDF** reduces the impact of very common words and highlights important terms
-- **Cosine similarity** measures how similar two movies are based on content direction rather than magnitude
+## Time and Space Optimization
+- Cosine similarity is computed **on demand**, not precomputed for all movie pairs
+- Space complexity reduced from **O(n²)** to **O(n)**
+- Suitable for small to medium-sized datasets
+
+This approach improves scalability while maintaining recommendation quality.
 
 ---
 
 ## Making Recommendations
-The system takes a movie title as input and returns a list of similar movies.
+The system takes a movie title as input and returns similar movies.
 
 Example:
 Enter movie name: interstellar
 
-The system then returns the top recommended movies based on content similarity.
 
-Prediction logic is demonstrated in:
-- `notebook/test.ipynb`
-- `src/recommender.py`
+The system outputs a list of recommended movies based on content similarity.
+
+Inference logic is demonstrated using:
+- Saved TF-IDF matrix
+- Saved processed movie data
+- Reusable recommendation function
+
+---
+
+## Technologies Used
+Python, Pandas, Scikit-learn, Joblib
 
 ---
 
 ## Limitations
 - No personalization (same recommendations for all users)
 - Does not use user ratings or viewing history
-- Full similarity matrix is not scalable for very large datasets
+- On-demand similarity still requires comparison with all movies
+- Not optimized for very large datasets
 
-These limitations are expected for a content-based system and can be addressed using collaborative or hybrid approaches.
-
----
-
-## Technologies Used
-Python, NumPy, Pandas, Scikit-learn
+These limitations are expected for a content-based recommendation system.
 
 ---
 
 ## How to Run
+
 1. Install dependencies:
 pip install -r requirements.txt
 
+2. Run the notebook to build the model:
+jupyter notebook notebook/rec.ipynb
 
-2. Run the main notebook:
-jupyter notebook notebook/main.ipynb
-
-
-3. Test recommendations:
-jupyter notebook notebook/test.ipynb
-
-Or run the script:
-python src/recommender.py
+3. Use the saved model for recommendations:
+python src/model.py
 
 
 ---
 
 ## Conclusion
-This project demonstrates a practical implementation of a content-based recommendation system using text features and similarity measures.  
-It highlights feature engineering, text representation, and recommendation logic without relying on user interaction data.
-
-
-**Note:** The `cosine_sim.pkl` file is generated during runtime and excluded from version control due to size. It will be created automatically when you run the script.
+This project demonstrates how a content-based recommendation system can be built using text feature engineering, TF-IDF vectorization, and cosine similarity.  
+It focuses on clean preprocessing, efficient similarity computation, and reproducible inference.
