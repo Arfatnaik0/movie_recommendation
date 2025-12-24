@@ -11,7 +11,6 @@ It demonstrates the full ML workflow:
 - similarity-based recommendation
 - deployment using Flask
 
-![alt text](output.png)
 ![alt text](output2.png)
 ![alt text](output3.png)
 
