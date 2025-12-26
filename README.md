@@ -12,6 +12,8 @@ It demonstrates the full ML workflow:
 - deployment using Flask
 
 ![alt text](output2.png)
+
+for wrong name entered of movie not in data:
 ![alt text](output3.png)
 
 ---
