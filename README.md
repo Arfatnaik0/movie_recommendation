@@ -3,6 +3,7 @@
 ## Overview
 This project is a **content-based movie recommendation system** deployed as a **Flask web application**.  
 The system recommends similar movies based on movie metadata and plot information instead of user ratings.
+https://movie-recommendation-ai22.onrender.com/
 
 It demonstrates the full ML workflow:
 - data preprocessing
@@ -39,19 +40,20 @@ movie_recommendation/
 ├── app/
 │ ├── app.py # Flask application
 │ ├── recommender.py # Recommendation logic
+│ ├── Procfile
+│ ├── requirements.txt
 │ └── templates/
 │   └── index.html # Web UI
+| ├── model and data/
+|   ├── data.pkl # Processed movie data
+|   └── tfidf_matrix.pkl # TF-IDF feature matrix
 │
 ├── src/
 │ └── build_model.py # Data preprocessing & model building
 │
 ├── data/
 │ ├── tmdb_5000_movies.csv
-│ └── tmdb_5000_credits.csv
-│
-├── model_data/
-│ ├── data.pkl # Processed movie data
-│ └── tfidf_matrix.pkl # TF-IDF feature matrix
+│ └── tmdb_5000_credits.csv 
 │
 ├── notebook/
 │ ├── rec.ipynb
@@ -133,10 +135,6 @@ python src/build_model.py
 
 ### 3. Run the Flask app
 python app/app.py
-
-
-Open the browser and visit:
-http://127.0.0.1:5000/
 
 
 ---
