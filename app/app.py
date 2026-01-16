@@ -1,7 +1,13 @@
 from flask import Flask,request, render_template
 import joblib
-data=joblib.load("..\\model and data\\data.pkl")
-tfidf_matrix=joblib.load("..\\model and data\\tfidf_matrix.pkl")
+import os
+
+base_dir = os.path.dirname(os.path.abspath(__file__))
+data_path = os.path.join(base_dir, "..", "model and data", "data.pkl")
+tfidf_path = os.path.join(base_dir, "..", "model and data", "tfidf_matrix.pkl")
+
+data=joblib.load(data_path)
+tfidf_matrix=joblib.load(tfidf_path)
 
 from recommender import get_recommendations
 app = Flask(__name__)
@@ -17,4 +23,4 @@ def recommend():
     return render_template('index.html', movie=movie, recommendations=recommendations)
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=False, host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
