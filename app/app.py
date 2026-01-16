@@ -3,8 +3,8 @@ import joblib
 import os
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
-data_path = os.path.join(base_dir, "..", "model and data", "data.pkl")
-tfidf_path = os.path.join(base_dir, "..", "model and data", "tfidf_matrix.pkl")
+data_path = os.path.join(base_dir, "model and data", "data.pkl")
+tfidf_path = os.path.join(base_dir, "model and data", "tfidf_matrix.pkl")
 
 data=joblib.load(data_path)
 tfidf_matrix=joblib.load(tfidf_path)
