@@ -9,7 +9,7 @@ tfidf_path = os.path.join(base_dir, "model and data", "tfidf_matrix.pkl")
 data=joblib.load(data_path)
 tfidf_matrix=joblib.load(tfidf_path)
 
-from recommender import get_recommendations
+from .recommender import get_recommendations
 app = Flask(__name__)
 
 @app.route('/')
